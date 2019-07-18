@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: register-center
+
+server:
+  port: 10010
+
+eureka:
+  instance:
+      ip-address: 10.100.120.45 # 指定此实例的ip
+      prefer-ip-address: true # 注册时使用ip而不是主机名
+  client:
+    serviceUrl:
+      defaultZone: http://10.100.120.44:10010/eureka/,http://10.100.120.40:10010/eureka/
+    fetch-registry: true
+    register-with-eureka: true
