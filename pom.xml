@@ -19,6 +19,7 @@
         <module>vip_center</module>
         <module>comment</module>
         <module>utils</module>
+
     </modules>
 
     <repositories>
