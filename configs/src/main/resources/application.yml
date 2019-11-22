@@ -1,0 +1,26 @@
+server:
+  port: 11111
+
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/lihuaixin/mall_config_repo
+          username: lihuaixin
+          password: ENC(pAKvgek9qiQWLAG7l1PMpsxN+23iV1vZ)
+
+#注册服务 registry_center
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8000/eureka/
+  instance:
+    prefer-ip-address: true
+
+#jasypt加解密时使用
+jasypt:
+  encryptor:
+    password: 9FET6pBiQo7h2nUA6SAccrak9GB0/Nuwomw4u5Un56llsI3C1JiezTjhkPQk
