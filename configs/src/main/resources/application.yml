@@ -12,6 +12,7 @@ spring:
           uri: https://github.com/lihuaixin/mall_config_repo
           username: lihuaixin
           password: ENC(pAKvgek9qiQWLAG7l1PMpsxN+23iV1vZ)
+          default-label: master #配置文件分支
 
 #注册服务 registry_center
 eureka:
