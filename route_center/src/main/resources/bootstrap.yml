@@ -29,8 +29,23 @@ spring:
       uri: http://127.0.0.1:11111 #配置服务
       label: master
 
+#log配置
+logging:
+  config: classpath:logback.xml
+  path: ${user.home}/logs/${spring.application.name}
+  level:
+    com.ibatis: DEBUG
+    org.springframework.kafka: ERROR
+
+
+#终端 配置
+management:
+  # 启用shutdown,优雅的关闭服务，默认是false
+  endpoint:
+    shutdown:
+      enabled: true
 
 com:
   lhx:
-    name: 李四
+    name: NaN
 
