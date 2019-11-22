@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-@RefreshScope
 public class RefreshRouteService {
     @Autowired
     ApplicationEventPublisher publisher;
 
     @Autowired
     RouteLocator routeLocator;
+
     @Value("${com.lhx.name}")
     private String name;
 
