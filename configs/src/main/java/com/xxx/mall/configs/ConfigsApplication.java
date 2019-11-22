@@ -6,6 +6,10 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @EnableConfigServer config 服务
+ * @EnableEurekaClient 连接注册中心配置
+ */
 @SpringBootApplication
 @EnableConfigServer
 @EnableEurekaClient

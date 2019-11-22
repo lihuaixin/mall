@@ -15,6 +15,14 @@ zuul:
     socket-timeout-millis: 60000
 
 
+
 spring:
   application:
     name: route-center
+
+   #使用DiscoveryClient找到配置服务器
+  cloud:
+    config:
+      discovery:
+        enabled: true
+      uri: http://127.0.0.1:11111
