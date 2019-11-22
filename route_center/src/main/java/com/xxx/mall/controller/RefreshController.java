@@ -21,6 +21,7 @@ public class RefreshController {
     @Autowired
     ZuulHandlerMapping zuulHandlerMapping;
 
+
     @GetMapping("/refresh")
     public BaseResponse<Object> refresh() {
         refreshRouteService.refreshRoute();

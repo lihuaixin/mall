@@ -1,6 +1,7 @@
 package com.xxx.mall.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
@@ -19,8 +20,12 @@ public class RouteConfig {
     @Autowired
     ServerProperties serverProperties;
 
+    @Value("${com.lhx.name}")
+    private String name;
+
     @Bean
     RouteLoader routeLoader(){
+        System.out.println(name);
         return new RouteLoader("/", zuulProperties);
     }
 
