@@ -14,15 +14,14 @@ zuul:
     connect-timeout-millis: 10000
     socket-timeout-millis: 60000
 
-com:
-  lhx:
-    name: 李四
-
 spring:
   application:
     name: route-center
   cloud: #使用DiscoveryClient找到配置服务器
     config:
       discovery:
+        # 使用eureka发现配置中心服务
         enabled: true
+         # 配置中心服务名称/ID
+        serviceId: config
       uri: http://127.0.0.1:11111 #配置服务
