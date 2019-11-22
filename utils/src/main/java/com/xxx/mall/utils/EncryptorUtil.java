@@ -1,4 +1,4 @@
-package com.xxx.mall.configs.util;
+package com.xxx.mall.utils;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
@@ -34,9 +34,9 @@ public class EncryptorUtil {
 	}
 
 	public static void main(String[] args) {
-		String str = encrypt("");
+		String str = encrypt("Hello1234");
 		System.out.println(str);
-		String dec = decrypt("BYrE1liztPj8ZwqBzV7WixXZ+JVAhFsEp28a8Jxo2LQ=");
-		System.out.println();
+		String dec = decrypt(str);
+		System.out.println(dec);
 	}
 }
