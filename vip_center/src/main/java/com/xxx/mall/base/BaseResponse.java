@@ -1,4 +1,4 @@
-package com.xxx.mall.domain;
+package com.xxx.mall.base;
 
 import com.xxx.mall.utils.AesUtil;
 import java.io.Serializable;
@@ -22,7 +22,7 @@ public class BaseResponse<T> implements Serializable{
     }
 
 
-    public BaseResponse() {
+    public BaseResponse(String succeedCodeValue, String succeedCodeValueMsg) {
     }
 
     public BaseResponse(String code, String msg, T data) {

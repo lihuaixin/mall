@@ -17,10 +17,8 @@ jasypt:
 spring:
   profiles:
     active: dev
-
   application:
     name: vip-center
-
   cloud: #使用DiscoveryClient找到配置服务器
     config:
       discovery:
@@ -30,14 +28,12 @@ spring:
         serviceId: config
       uri: http://127.0.0.1:11111 #配置服务
       label: master
-
   datasource:
     url: jdbc:mysql://192.168.112.31:3306/test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     username: ENC(MT91y3hqb0x/p5qMHBIGkAHI5I6Y0ram)
     password: ENC(4N1tNOoY0zyuAfuiX1T26Ef4RvqDcY3AIHr7TBpbQ8w=)
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-
   redis:
     host: 192.168.106.76
     database: 6
@@ -58,26 +54,10 @@ management:
   endpoint:
     shutdown:
       enabled: true
-  endpoints:
-    web:
-      exposure:
-        #暴露actuator中的某些接口， refresh 刷新config配置信息
-        include: '*'
 
-## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+#配置mybatis相关文件位置
 mybatis:
-  type-aliases-package: com.xxx.mall.mapper
-#  mapper-locations: classpath:mapper/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
-
-#pagehelper分页插件
-pagehelper:
-    helperDialect: mysql
-    reasonable: true
-    supportMethodsArguments: true
-    params: count=countSql
-    returnPageInfo: check
-
-
-
+  mapper-locations: classpath:mybatis-mapper/*.xml
+  config-location: classpath:mybatis-config.xml
+  #扫描domain的包名
+  aliasesPackage: com.xxx.mall.domain

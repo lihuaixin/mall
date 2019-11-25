@@ -36,7 +36,7 @@ public class EncryptorUtil {
 	public static void main(String[] args) {
 		String str = encrypt("Hello1234");
 		System.out.println(str);
-		String dec = decrypt(str);
+		String dec = decrypt("4N1tNOoY0zyuAfuiX1T26Ef4RvqDcY3AIHr7TBpbQ8w=");
 		System.out.println(dec);
 	}
 }

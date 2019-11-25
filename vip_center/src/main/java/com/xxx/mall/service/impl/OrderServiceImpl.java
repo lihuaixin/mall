@@ -1,22 +1,21 @@
 package com.xxx.mall.service.impl;
 
+
+import com.xxx.mall.base.BaseServiceImpl;
+import com.xxx.mall.domain.Order;
 import com.xxx.mall.mapper.OrderMapper;
-import com.xxx.mall.model.Orders;
 import com.xxx.mall.service.OrderService;
-import com.xxx.mall.vip_center.config.MyMapper;
-import org.apache.ibatis.jdbc.Null;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by lihuaixin on 2019/2/26 18:07
+ * <p>
+ *  服务实现类
+ * </p>
+ *
+ * @author liqiang
+ * @since 2019-11-22
  */
 @Service
-public class OrderServiceImpl extends BaseServiceImpl<Orders,Integer> implements OrderService {
-    @Autowired
-    OrderMapper orderMapper;
-    @Override
-    public MyMapper<Orders> getMapper() {
-        return orderMapper;
-    }
+public class OrderServiceImpl extends BaseServiceImpl<OrderMapper, Order> implements OrderService {
+
 }

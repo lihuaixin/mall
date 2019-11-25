@@ -1,10 +1,11 @@
 package com.xxx.mall.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.xxx.mall.domain.BaseResponse;
-import com.xxx.mall.domain.Constants;
-import com.xxx.mall.service.BaseService;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xxx.mall.base.BaseResponse;
+import com.xxx.mall.base.BaseService;
+import com.xxx.mall.base.Constants;
+import com.xxx.mall.base.PageQueryWrapper;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import java.util.List;
 @RestController
 public abstract class CRUDController<T, ID extends Serializable> {
 
-    protected BaseService<T, ID> service;
+    protected BaseService service;
 
     abstract void initService();
 
@@ -28,8 +29,7 @@ public abstract class CRUDController<T, ID extends Serializable> {
     public BaseResponse<T> insert(T record) {
         try {
             initService();
-            int insert = service.insert(record);
-            if (insert > 0)
+            if (service.save(record))
                 return new BaseResponse<>(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG, record);
             else
                 throw new Exception();
@@ -43,8 +43,7 @@ public abstract class CRUDController<T, ID extends Serializable> {
     BaseResponse<List<T>> insertList(List<T> list) {
         try {
             initService();
-            int insert = service.insertList(list);
-            if (insert > 0)
+            if (service.saveBatch(list))
                 return new BaseResponse<>(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG, list);
             else
                 throw new Exception();
@@ -59,8 +58,7 @@ public abstract class CRUDController<T, ID extends Serializable> {
     public BaseResponse<T> updateById(T record) {
         try {
             initService();
-            int insert = service.updateById(record);
-            if (insert > 0)
+            if (service.updateById(record))
                 return new BaseResponse<>(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG, record);
             else
                 throw new Exception();
@@ -72,12 +70,11 @@ public abstract class CRUDController<T, ID extends Serializable> {
 
     @PostMapping("/updateByIdSelective")
     @Transactional
-    public BaseResponse<T> updateByIdSelective(T record) {
+    public BaseResponse updateByIdSelective(Wrapper<T> record) {
         try {
             initService();
-            int insert = service.updateByIdSelective(record);
-            if (insert > 0)
-                return new BaseResponse<>(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG, record);
+            if ( service.update(record))
+                return new BaseResponse(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG);
             else
                 throw new Exception();
         } catch (Exception e) {
@@ -90,7 +87,7 @@ public abstract class CRUDController<T, ID extends Serializable> {
     public BaseResponse<T> getById(ID id) {
         try {
             initService();
-            T record = service.getById(id);
+            T record = (T) service.getById(id);
             return new BaseResponse<>(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG, record);
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,8 +100,7 @@ public abstract class CRUDController<T, ID extends Serializable> {
     public BaseResponse<ID> deleteById(ID id) {
         try {
             initService();
-            int delete = service.deleteById(id);
-            if (delete > 0)
+            if (service.removeById(id) )
                 return new BaseResponse<>(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG, null);
             else
                 throw new Exception();
@@ -116,11 +112,10 @@ public abstract class CRUDController<T, ID extends Serializable> {
 
     @PostMapping("/delete")
     @Transactional
-    public BaseResponse<ID> delete(T record) {
+    public BaseResponse<ID> delete(Wrapper<T> record) {
         try {
             initService();
-            int delete = service.delete(record);
-            if (delete > 0)
+            if (service.remove(record))
                 return new BaseResponse<>(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG, null);
             else
                 throw new Exception();
@@ -131,10 +126,10 @@ public abstract class CRUDController<T, ID extends Serializable> {
 
 
     @GetMapping("/selectOne")
-    public BaseResponse<T> selectOne(T record) {
+    public BaseResponse<T> selectOne(Wrapper<T> record) {
         try {
             initService();
-            T select = service.selectOne(record);
+            T select = (T) service.getOne( record);
             return new BaseResponse<>(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG, select);
         } catch (Exception e) {
             return BaseResponse.fail("操作失败!");
@@ -142,13 +137,11 @@ public abstract class CRUDController<T, ID extends Serializable> {
     }
 
     @GetMapping("/selectList")
-    public BaseResponse<PageInfo<T>> selectList(T record, Integer pageNum, Integer pageSize) {
+    public BaseResponse<Object> selectList(PageQueryWrapper<T> record) {
         try {
             initService();
-            PageHelper.startPage(pageNum, pageSize);
-            List<T> list = service.selectList(record);
-            PageInfo<T> pageInfo = new PageInfo<>(list);
-            return new BaseResponse<>(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG, pageInfo);
+            IPage list = service.pageQuery(record);
+            return new BaseResponse<>(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG, list);
         } catch (Exception e) {
             return BaseResponse.fail("操作失败!");
         }
@@ -158,7 +151,7 @@ public abstract class CRUDController<T, ID extends Serializable> {
     public BaseResponse<List<T>> selectAll() {
         try {
             initService();
-            List<T> list = service.selectAll();
+            List<T> list = service.list();
             return new BaseResponse<>(Constants.SUCCEED_CODE_VALUE, Constants.SUCCEED_CODE_VALUE_MSG, list);
         } catch (Exception e) {
             return BaseResponse.fail("操作失败!");

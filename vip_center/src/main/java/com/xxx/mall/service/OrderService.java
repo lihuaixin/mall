@@ -1,11 +1,16 @@
 package com.xxx.mall.service;
 
-import com.xxx.mall.model.Orders;
-import org.apache.ibatis.jdbc.Null;
+import com.xxx.mall.base.BaseService;
+import com.xxx.mall.domain.Order;
 
 /**
- * Created by lihuaixin on 2019/2/26 18:05
+ * <p>
+ *  服务类
+ * </p>
+ *
+ * @author liqiang
+ * @since 2019-11-22
  */
-public interface OrderService extends BaseService<Orders,Integer> {
+public interface OrderService extends BaseService<Order> {
 
 }

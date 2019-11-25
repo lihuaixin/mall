@@ -1,4 +1,4 @@
-package com.xxx.mall.domain;
+package com.xxx.mall.base;
 
 /**
  * Created by lihuaixin on 2019/2/27 13:14
