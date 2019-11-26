@@ -60,4 +60,4 @@ mybatis:
   mapper-locations: classpath:mybatis-mapper/*.xml
   config-location: classpath:mybatis-config.xml
   #扫描domain的包名
-  aliasesPackage: com.xxx.mall.domain
+  aliasesPackage: com.xxx.mall.dao.domain

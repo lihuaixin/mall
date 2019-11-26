@@ -29,6 +29,6 @@ public class GeneratorBootstrap {
                 .outPutEntityQuery(true)
                 .setFileOverride(true)
                 .setBaseClassPackage("com.xxx.mall.base")
-                .generateByTables("order");
+                .generateByTables("orders");
     }
 }

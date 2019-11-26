@@ -1,7 +1,9 @@
-package com.xxx.mall.domain;
+package com.xxx.mall.dao.domain;
 
 import com.xxx.mall.base.BaseEntity;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -17,13 +19,13 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Order extends BaseEntity {
+public class Orders extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     private String custId;
 
-    private LocalDateTime orderDate;
+    private Date orderDate;
 
 
 }

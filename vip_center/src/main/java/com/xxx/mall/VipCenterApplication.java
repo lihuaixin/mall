@@ -1,4 +1,4 @@
-package com.xxx.mall.vip_center;
+package com.xxx.mall;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.xxx.mall")
-@MapperScan("com.xxx.mall.mapper")
+@MapperScan("com.xxx.mall.dao.mapper")
 @EnableEurekaClient
 public class VipCenterApplication {
 
