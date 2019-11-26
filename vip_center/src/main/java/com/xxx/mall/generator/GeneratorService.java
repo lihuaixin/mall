@@ -25,7 +25,7 @@ public class GeneratorService {
     private String username;
     private String password;
     public static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
-    public static final String AUTHOR = "liqiang";
+    public static final String AUTHOR = "lihuaixin";
     public static final String MAPPER_NAME = "%sMapper";
     public static final String PATH_SEPARATOR = "\\";
     private String packageName;

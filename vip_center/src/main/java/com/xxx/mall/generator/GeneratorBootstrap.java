@@ -19,14 +19,14 @@ public class GeneratorBootstrap {
 
         GeneratorService generatorService = new GeneratorService(packageName, directoryName, JDBC_URL, USERNAME, PASSWORD);
         generatorService
-                .outPutController(false)
+                .outPutController(true)
                 .outPutEntity(true)
-                .outPutEntityKt(false)
+                .outPutEntityKt(true)
                 .outPutMapper(true)
                 .outPutService(true)
                 .outPutServiceImpl(true)
                 .outPutXml(true)
-                .outPutEntityQuery(false)
+                .outPutEntityQuery(true)
                 .setFileOverride(true)
                 .setBaseClassPackage("com.xxx.mall.base")
                 .generateByTables("order");

@@ -8,8 +8,8 @@ import com.xxx.mall.domain.Order;
  *  服务类
  * </p>
  *
- * @author liqiang
- * @since 2019-11-22
+ * @author lihuaixin
+ * @since 2019-11-26
  */
 public interface OrderService extends BaseService<Order> {
 

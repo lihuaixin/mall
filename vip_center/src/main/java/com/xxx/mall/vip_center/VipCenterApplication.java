@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.xxx.mall")
-@MapperScan("com.xxx.mall")
+@MapperScan("com.xxx.mall.mapper")
 @EnableEurekaClient
 public class VipCenterApplication {
 

@@ -77,6 +77,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        <!-- spring cloud gateway 限流算法是通过redis来存储的，需要加入其响应式的依赖,基于 reactive stream 的redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+        </dependency>
 
         <!--加密-->
         <dependency>
