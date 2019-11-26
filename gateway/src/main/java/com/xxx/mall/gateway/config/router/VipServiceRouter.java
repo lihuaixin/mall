@@ -1,4 +1,4 @@
-package com.xxx.mall.gateway.config;
+package com.xxx.mall.gateway.config.router;
 
 
 import com.xxx.mall.gateway.constant.ServiceConstant;
@@ -44,6 +44,7 @@ public class VipServiceRouter {
 
     @Bean
     public RedisRateLimiter redisRateLimiter() {
+        System.out.println(""+apiReplenishRate+"-"+apiBurstCapacity);
         return new RedisRateLimiter(apiReplenishRate, apiBurstCapacity);
     }
 
