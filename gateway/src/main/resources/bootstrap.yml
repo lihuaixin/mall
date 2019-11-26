@@ -57,3 +57,8 @@ management:
   endpoint:
     shutdown:
       enabled: true
+  endpoints:
+    web:
+      exposure:
+        #暴露actuator中的某些接口， refresh 刷新config配置信息,shutdown关闭接口
+        include: '*'
