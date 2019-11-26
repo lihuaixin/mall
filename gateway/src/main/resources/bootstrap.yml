@@ -1,1 +1,51 @@
+server:
+  port: 6666
 
+#注册服务
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8000/eureka/
+  instance:
+    prefer-ip-address: true
+
+
+#jasypt加解密时使用
+jasypt:
+  encryptor:
+    password: 9FET6pBiQo7h2nUA6SAccrak9GB0/Nuwomw4u5Un56llsI3C1JiezTjhkPQk
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: gateway
+  cloud: #使用DiscoveryClient找到配置服务器
+    config:
+      discovery:
+        # 使用eureka发现配置中心服务
+        enabled: true
+        # 配置中心服务名称/ID
+        serviceId: config
+      uri: http://127.0.0.1:11111 #配置服务
+      label: master
+    gateway:
+      discovery:
+        locator:
+         #Flag that enables DiscoveryClient gateway integration
+         #是否与服务发现组件进行结合，通过 serviceId 转发到具体的服务实例。默认为false，设为true便开启通过服务中心的自动根据 serviceId 创建路由的功能
+          enabled: true
+
+#log配置
+logging:
+  config: classpath:logback.xml
+  path: ${user.home}/logs/${spring.application.name}
+  level:
+    com.xxx.mall: DEBUG
+
+#终端 配置
+management:
+  # 启用shutdown,优雅的关闭服务，默认是false
+  endpoint:
+    shutdown:
+      enabled: true
