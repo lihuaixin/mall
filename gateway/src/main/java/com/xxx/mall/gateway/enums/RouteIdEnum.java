@@ -2,13 +2,12 @@ package com.xxx.mall.gateway.enums;
 
 /**
  * @desc:  路由id枚举
- * @author:  weiqingeng
  * @date:  2018/8/11 16:52
  */
 public enum RouteIdEnum {
 
     // vip服务
-    ORDER_VIP_ROUTE_ID("vip_route", "vip服务路由id"),
+    VIP_ROUTE_ID("vip_route", "vip服务路由id")
     ;
 
     private String code;

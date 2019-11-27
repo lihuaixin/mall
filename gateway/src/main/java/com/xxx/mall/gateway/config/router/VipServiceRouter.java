@@ -49,24 +49,34 @@ public class VipServiceRouter {
     }
 
     @Bean
-    public RouteLocator orderRouter(RouteLocatorBuilder builder,RedisRateLimiter redisRateLimiter) {
+    public RouteLocator vipRouter(RouteLocatorBuilder builder,RedisRateLimiter redisRateLimiter) {
         RouteLocatorBuilder.Builder routes = builder.routes();
         RouteLocatorBuilder.Builder serviceProvider = routes
+//                /**
+//                 * 拦截 订单模块 站内H5 访问 /gateway/order/inner/** 的所有请求，lb:// 代表将请求通过负载均衡路由到ishangjie-order-service服务上面
+//                 */
+//                .route(RouteIdEnum.VIP_ROUTE_ID.getCode(),
+//                        r -> r.path("/vip/**")
+//                                .filters(f -> f.stripPrefix(1)
+//                                        .requestRateLimiter(c -> c.setRateLimiter(redisRateLimiter).setKeyResolver(keyResolver))
+//                                        .hystrix(h -> h.setName("vipHystrixCommand").setFallbackUri("forward:/vip/hystrixFallback")
+//                                        ))
+//                                .uri("lb://".concat(ServiceConstant.VIP_SERVICE))
+//                )
 
                 /**
-                 * 拦截 订单模块 站内H5 访问 /gateway/order/inner/** 的所有请求，lb:// 代表将请求通过负载均衡路由到ishangjie-order-service服务上面
+                 * 拦截 订单模块 站内H5 访问 /gateway/vip/** 的所有请求，lb:// 代表将请求通过负载均衡路由到vip-center服务上面
                  */
-                .route(RouteIdEnum.ORDER_VIP_ROUTE_ID.getCode(),
+                .route(RouteIdEnum.VIP_ROUTE_ID.getCode(),
                         r -> r.path("/vip/**")
                                 .filters(f -> f.stripPrefix(1)
-                                        .requestRateLimiter(c -> c.setRateLimiter(redisRateLimiter).setKeyResolver(keyResolver))
-                                        .hystrix(h -> h.setName("orderInnerHystrixCommand").setFallbackUri("forward:/orderInner/hystrixFallback")))
+                                        .hystrix(h -> h.setName("vipHystrixCommand").setFallbackUri("forward:/vip/hystrixFallback")
+                                        ))
                                 .uri("lb://".concat(ServiceConstant.VIP_SERVICE))
                 )
-
                 ;
         RouteLocator routeLocator = serviceProvider.build();
-        logger.info("OrderServiceRouter is loading ... {}", routeLocator);
+        logger.info("VipServiceRouter is loading ... {}", routeLocator);
         return routeLocator;
     }
 

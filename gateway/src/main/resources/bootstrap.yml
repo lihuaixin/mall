@@ -1,5 +1,9 @@
 server:
-  port: 6666
+  port: 8090
+    ###server.servlet.context-path，由于gateway用的是webflux，所以这个设定其实是不生效的，现在还没有一个key来设定webflux的context-path
+    ###为了nginx能把请求都统一路由到gateway，所以必须要有一个统一的前缀，这里定义为gateway，nginx可以设置请求前缀为/gateway的请求都转发到gateway服务上
+  servlet:
+    context-path: gateway
 
 #注册服务
 eureka:
