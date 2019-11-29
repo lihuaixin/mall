@@ -6,6 +6,7 @@ import com.xxx.mall.gateway.enums.RouteIdEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
@@ -25,6 +26,8 @@ import org.springframework.context.annotation.Configuration;
 public class OrderServiceRouter {
 
     private Logger logger = LoggerFactory.getLogger(OrderServiceRouter.class);
+    @Value("${server.servlet.context-path}")
+    private String contextPath;
 
     @Autowired
     private KeyResolver apiKeyResolver;
@@ -39,8 +42,8 @@ public class OrderServiceRouter {
                  * 拦截 订单模块 站内H5 访问 /gateway/order/** 的所有请求，lb:// 代表将请求通过负载均衡路由到order-center服务上面
                  */
                 .route(RouteIdEnum.VIP_ROUTE_ID.getCode(),
-                        r -> r.path("/order/**")
-                                .filters(f -> f.requestRateLimiter(c -> c.setRateLimiter(apiRedisRateLimiter).setKeyResolver(apiKeyResolver))
+                        r -> r.path(contextPath.concat("/order/**"))
+                                .filters(f -> f.stripPrefix(1).requestRateLimiter(c -> c.setRateLimiter(apiRedisRateLimiter).setKeyResolver(apiKeyResolver))
                                         .hystrix(h -> h.setName("orderHystrixCommand").setFallbackUri("forward:/orderCenter/hystrixFallback"))
                                 )
                                 .uri("lb://".concat(ServiceConstant.ORDER_SERVICE))
