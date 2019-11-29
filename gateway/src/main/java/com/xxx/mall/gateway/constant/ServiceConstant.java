@@ -13,6 +13,8 @@ public class ServiceConstant {
     public static final String GATEWAY_SERVICE = "gateway";
     /** Vip服务 **/
     public static final String VIP_SERVICE = "vip-center";
+    /** Order服务 **/
+    public static final String ORDER_SERVICE = "order-center";
 
 
 }
