@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class VipHystrixCommand {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping("/vip/hystrixFallback")
+    @RequestMapping("/vipCenter/hystrixFallback")
     public BaseResponse hystrixFallback() {
-        logger.warn("/vip/hystrixFallback");
+        logger.warn("/vipCenter/hystrixFallback");
         return BaseResponse.fail("/vip/hystrixFallback");
     }
 

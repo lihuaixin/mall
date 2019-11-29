@@ -40,8 +40,10 @@ spring:
          #是否与服务发现组件进行结合，通过 serviceId 转发到具体的服务实例。默认为false，设为true便开启通过服务中心的自动根据 serviceId 创建路由的功能
           enabled: true
       redis-rate-limiter:
-        apiReplenishRate: 10
-        apiBurstCapacity: 100
+        #令牌桶每秒填充平均速率
+        apiReplenishRate: 2
+        # 令牌桶最大容量,用户允许在一秒钟内完成的最大请求数
+        apiBurstCapacity: 2
   redis:
     host: 192.168.106.76
     database: 7

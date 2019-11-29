@@ -10,9 +10,8 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 
 
 /**
+ *  限流算法是通过redis来存储的，需要加入其响应式的依赖,基于 reactive stream 的redis
  *@desc: redis cashe配置类
- *@author:  weiqingeng
- *@date:  2018/7/13 20:10
  */
 @Configuration
 public class ReactiveRedisCacheConfig {

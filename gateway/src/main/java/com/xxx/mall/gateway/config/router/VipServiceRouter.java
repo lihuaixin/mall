@@ -14,6 +14,7 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import reactor.core.publisher.Mono;
 
 
 /**
@@ -28,50 +29,22 @@ public class VipServiceRouter {
     private Logger logger = LoggerFactory.getLogger(VipServiceRouter.class);
 
     @Autowired
-    private KeyResolver keyResolver;
-    /**
-     * 自定义 apiRedisRateLimiter,针对api限流
-     *
-     * @return
-     */
-    /** 每秒最大访问次数 */
-    @Value("${spring.cloud.gateway.redis-rate-limiter.apiReplenishRate}")
-    private int apiReplenishRate;
-
-    /** 令牌桶最大容量,用户允许在一秒钟内完成的最大请求数，这是令牌桶可以容纳的令牌的数量，将此值设置为零将阻止所有请求 */
-    @Value("${spring.cloud.gateway.redis-rate-limiter.apiBurstCapacity}")
-    private int apiBurstCapacity;
+    private KeyResolver apiKeyResolver;
+    @Autowired
+    private RedisRateLimiter apiRedisRateLimiter;
 
     @Bean
-    public RedisRateLimiter redisRateLimiter() {
-        System.out.println(""+apiReplenishRate+"-"+apiBurstCapacity);
-        return new RedisRateLimiter(apiReplenishRate, apiBurstCapacity);
-    }
-
-    @Bean
-    public RouteLocator vipRouter(RouteLocatorBuilder builder,RedisRateLimiter redisRateLimiter) {
+    public RouteLocator vipRouter(RouteLocatorBuilder builder) {
         RouteLocatorBuilder.Builder routes = builder.routes();
         RouteLocatorBuilder.Builder serviceProvider = routes
-//                /**
-//                 * 拦截 订单模块 站内H5 访问 /gateway/order/inner/** 的所有请求，lb:// 代表将请求通过负载均衡路由到ishangjie-order-service服务上面
-//                 */
-//                .route(RouteIdEnum.VIP_ROUTE_ID.getCode(),
-//                        r -> r.path("/vip/**")
-//                                .filters(f -> f.stripPrefix(1)
-//                                        .requestRateLimiter(c -> c.setRateLimiter(redisRateLimiter).setKeyResolver(keyResolver))
-//                                        .hystrix(h -> h.setName("vipHystrixCommand").setFallbackUri("forward:/vip/hystrixFallback")
-//                                        ))
-//                                .uri("lb://".concat(ServiceConstant.VIP_SERVICE))
-//                )
-
                 /**
                  * 拦截 订单模块 站内H5 访问 /gateway/vip/** 的所有请求，lb:// 代表将请求通过负载均衡路由到vip-center服务上面
                  */
                 .route(RouteIdEnum.VIP_ROUTE_ID.getCode(),
                         r -> r.path("/vip/**")
-                                .filters(f -> f.stripPrefix(1)
-                                        .hystrix(h -> h.setName("vipHystrixCommand").setFallbackUri("forward:/vip/hystrixFallback")
-                                        ))
+                                .filters(f -> f.requestRateLimiter(c -> c.setRateLimiter(apiRedisRateLimiter).setKeyResolver(apiKeyResolver))
+                                        .hystrix(h -> h.setName("vipHystrixCommand").setFallbackUri("forward:/vipCenter/hystrixFallback"))
+                                )
                                 .uri("lb://".concat(ServiceConstant.VIP_SERVICE))
                 )
                 ;
