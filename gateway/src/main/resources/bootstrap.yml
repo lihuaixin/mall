@@ -50,6 +50,26 @@ spring:
     port: 6379
     password: ENC(kYjyUavJ/hWpppO1yvSIUotbAn2MeeOu)
 
+
+### 特别注意 目前Spring Cloud gateway接入了hystrix，hystrix的默认采用线程池来执行接口调用的请求，
+### 如果hystrix熔断时间设置过大，万一下游服务偶然出现响应超时，那线程池里的线程将全部消耗卡死，所以一定要从业务上来优化接口响应时间
+### ribbon和hystrix的超时时间设置，不要因为系统接口的性能过差而懒惰，搞成几秒甚至几十秒的超时，一般超时定义在1秒以内，是比较通用以及合理的
+### hystrix的熔断时间一定要大于ribbon超时时间
+##设置hystrix超时时间(毫秒),设置调用者等待命令执行的超时限制，超过此时间，HystrixCommand被标记为TIMEOUT，并执行回退逻辑,默认1s
+## 基于目前有些接口还未优化到位，熔断时间先设置成3秒
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+    vipHystrixCommand:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
 #log配置
 logging:
   config: classpath:logback.xml

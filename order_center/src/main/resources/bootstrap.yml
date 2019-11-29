@@ -1,0 +1,59 @@
+server:
+  port: 8081
+
+#注册服务 到 registry_center
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8000/eureka/
+  instance:
+    prefer-ip-address: true
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: order-center
+  cloud: #使用DiscoveryClient找到配置服务器
+    config:
+      discovery:
+        # 使用eureka发现配置中心服务
+        enabled: true
+        # 配置中心服务名称/ID
+        serviceId: config
+      uri: http://127.0.0.1:11111 #配置服务
+      label: master
+
+#jasypt加解密时使用
+jasypt:
+  encryptor:
+    password: 9FET6pBiQo7h2nUA6SAccrak9GB0/Nuwomw4u5Un56llsI3C1JiezTjhkPQk
+
+
+# 开启feign 断路器
+feign:
+  hystrix:
+    enabled: true
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+#log配置
+logging:
+  config: classpath:logback.xml
+  path: ${user.home}/logs/${spring.application.name}
+  level:
+    com.xxx.mall: DEBUG
+
+#终端 配置
+management:
+  # 启用shutdown,优雅的关闭服务，默认是false
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        #暴露actuator中的某些接口， refresh 刷新config配置信息,shutdown关闭接口
+        include: '*'

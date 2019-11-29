@@ -1,4 +1,4 @@
-package com.xxx.mall.orderCenter;
+package com.xxx.mall;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

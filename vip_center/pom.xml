@@ -23,12 +23,6 @@
     <dependencies>
         <dependency>
             <groupId>com.xxx.mall</groupId>
-            <artifactId>utils</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.xxx.mall</groupId>
             <artifactId>comment</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -74,15 +68,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- 页面监控 actuator 优雅关机-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <!-- swagger2 -->
@@ -96,6 +90,7 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.8.0</version>
         </dependency>
+
         <!-- alibaba的fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -143,6 +138,14 @@
             <artifactId>velocity</artifactId>
             <version>1.7</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
 
     </dependencies>
 
