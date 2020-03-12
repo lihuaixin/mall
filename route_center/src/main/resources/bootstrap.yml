@@ -11,8 +11,8 @@ eureka:
 
 zuul:
   host:
-    connect-timeout-millis: 10000
-    socket-timeout-millis: 60000
+    connect-timeout-millis: 1000
+    socket-timeout-millis: 6000
 
 spring:
   profiles:

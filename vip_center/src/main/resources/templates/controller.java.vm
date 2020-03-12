@@ -58,11 +58,11 @@ public class ${table.controllerName} {
      * @return
      */
     @PostMapping("/saveOrUpdate")
-    public ${table.entityName} saveOrUpdate(@RequestBody ${table.entityName} ${table.entityPath}) throws Exception {
+    public BaseResponse saveOrUpdate(@RequestBody ${table.entityName} ${table.entityPath}) throws Exception {
         if (${table.entityPath}Service.saveOrUpdate(${table.entityPath})) {
-            return ${table.entityPath};
+            return BaseResponse.success(${table.entityPath});
         }
-        throw new Exception();
+        return BaseResponse.fail(${table.entityPath});
     }
 #if(${cfg.BaseClassPackage})
     /**
@@ -72,12 +72,12 @@ public class ${table.controllerName} {
      * @return 分页结果集
      */
     @PostMapping("/list")
-    public Page list(@RequestBody PageQueryWrapper<${table.entityName}> query) {
+    public BaseResponse list(@RequestBody PageQueryWrapper<${table.entityName}> query) {
 
         query.setQueryClazz(${table.entityName}.class);
         Page pageList = (Page) ${table.entityPath}Service.pageQuery(query);
 
-        return pageList;
+        return BaseResponse.success(pageList);
     }
 #else
     /**
@@ -86,25 +86,23 @@ public class ${table.controllerName} {
      * @return 分页结果集
      */
     @PostMapping("/list")
-    public IPage list(@RequestBody ${table.entityName} entity, Page<${table.entityName}> page) {
+    public BaseResponse list(@RequestBody ${table.entityName} entity, Page<${table.entityName}> page) {
 
         IPage pageList = ${table.entityPath}Service.page(page, new QueryWrapper<>(entity));
 
-        return pageList;
+        return BaseResponse.success(pageList);
     }
 
-        /**
-        * 分页查询
-        *
-        * @return 分页结果集
-        */
-        @PostMapping("/list")
-        public IPage list(@RequestBody ${table.entityName} entity, Page<${table.entityName}> page) {
-
-                IPage pageList = ${table.entityPath}Service.page(page, new QueryWrapper<>(entity));
-
-        return pageList;
-        }
+    /**
+    * 分页查询
+    *
+    * @return 分页结果集
+    */
+    @PostMapping("/list")
+    public BaseResponse list(@RequestBody ${table.entityName} entity, Page<${table.entityName}> page) {
+        IPage pageList = ${table.entityPath}Service.page(page, new QueryWrapper<>(entity));
+        return BaseResponse.success(pageList);
+    }
 #end
     /**
      * 批量删除
@@ -113,11 +111,11 @@ public class ${table.controllerName} {
      * @return
      */
     @PostMapping("/remove")
-    public void remove(@RequestBody List<Long> idList) throws Exception {
+    public BaseResponse remove(@RequestBody List<Long> idList) throws Exception {
         if (${table.entityPath}Service.removeByIds(idList)) {
-            return;
+            return BaseResponse.success(idList);
         }
-        throw new Exception();
+        return BaseResponse.fail(idList);
     }
 
     /**
@@ -127,9 +125,9 @@ public class ${table.controllerName} {
      * @return
      */
     @GetMapping("/{id}")
-    public ${table.entityName} getById(@PathVariable Long id) {
+    public BaseResponse getById(@PathVariable Long id) {
         ${table.entityName} ${table.entityPath} = ${table.entityPath}Service.getById(id);
-        return ${table.entityPath};
+        return BaseResponse.success(${table.entityPath});
     }
 }
 

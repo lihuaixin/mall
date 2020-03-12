@@ -26,12 +26,21 @@
             <artifactId>comment</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!-- redisson，封装了redis官方推荐的redlock分布式锁，Redisson底层采用的是Netty 框架。支持Redis 2.8以上版本，支持Java1.6+以上版本
+         官网： https://github.com/redisson/redisson -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.9.1</version>
+        </dependency>
+
         <!--加密-->
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>
             <version>2.0.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
